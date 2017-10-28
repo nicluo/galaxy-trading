@@ -11,9 +11,41 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Space Math</h1>
         </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+
+        {/* ResultList Component */}
+        <div className="container my-4">
+          <div className="card my-2">
+            <ul className="list-group list-group-flush">
+              <li className="list-group-item">
+                <strong className="h4">
+                  how much wood could a woodchuck chuck if a woodchuck could chuck wood ?
+                </strong>
+              </li>
+              <li className="list-group-item list-group-item-danger">
+                I have no idea what you are talking about
+              </li>
+            </ul>
+          </div>
+          <div className="card my-2">
+            <ul className="list-group list-group-flush">
+              <li className="list-group-item">
+                <strong className="h4">
+                  how much is pish tegj glob glob ?
+                </strong>
+              </li>
+              <li className="list-group-item list-group-item-success">
+                pish tegj glob glob is 42
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Form Component */}
+        <div className="container my-4">
+          <div className="form-group">
+            <input type="text" className="form-control form-control-lg" id="query" aria-describedby="query" placeholder="how much is pish pish Iron ?" autoFocus="" />
+          </div>
+        </div>
       </div>
     );
   }
