@@ -1,5 +1,6 @@
 import Koa from 'koa';
 import Router from 'koa-router';
+import Session from './sessions';
 
 /**
  * Boilerplate Koa Router
@@ -21,11 +22,26 @@ router.del('/queries/:queryId', ctx => {
 });
 
 router.post('/sessions', ctx => {
-  ctx.body = {data: 'Session'};
+  ctx.body = Session.createSession();
+});
+
+router.get('/sessions/:sessionId', ctx => {
+  const s = Session.getInstance(ctx.params.sessionId);
+  if(s) {
+    ctx.body = s;
+  } else {
+    ctx.response.status = 404;
+  }
 });
 
 router.del('/sessions/:sessionId', ctx => {
-  ctx.body = {data: 'Session Delete'};
+  const s = Session.getInstance(ctx.params.sessionId);
+  if(s) {
+    s.deleteSession();
+    ctx.response.status = 202;
+  } else {
+    ctx.response.status = 404;
+  }
 });
 
 /**
