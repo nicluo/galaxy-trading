@@ -1,5 +1,6 @@
 import Koa from 'koa';
 import Router from 'koa-router';
+import bodyParser from 'koa-bodyparser';
 import Session from './sessions';
 
 /**
@@ -50,6 +51,7 @@ router.del('/sessions/:sessionId', ctx => {
 
 const api = new Koa();
 api
+  .use(bodyParser())
   .use(router.routes())
   .use(router.allowedMethods());
 
