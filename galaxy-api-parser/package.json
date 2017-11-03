@@ -16,7 +16,7 @@
   },
   "scripts": {
     "start": "node index.js",
-    "test": "export NODE_ENV=testing && jest"
+    "test": "export NODE_ENV=testing && jest --watch"
   },
   "jest": {
     "testEnvironment": "node"
