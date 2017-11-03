@@ -33,6 +33,15 @@ class Session {
 
   constructor(id) {
     this.id = id;
+    this.parserId = null;
+  }
+
+  /**
+   * setParserId sets the Parser ID for the session
+   * @param id
+   */
+  setParserId(id) {
+    this.parserId = id;
   }
 
   /**

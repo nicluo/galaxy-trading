@@ -2,6 +2,7 @@ import Koa from 'koa';
 import Router from 'koa-router';
 import bodyParser from 'koa-bodyparser';
 import Session from './sessions';
+import Parser from './parsers';
 
 /**
  * Boilerplate Koa Router
@@ -23,7 +24,10 @@ router.del('/queries/:queryId', ctx => {
 });
 
 router.post('/sessions', ctx => {
-  ctx.body = Session.createSession();
+  const s = Session.createSession();
+  const p = Parser.createParser();
+  s.setParserId(p.id);
+  ctx.body = s;
 });
 
 router.get('/sessions/:sessionId', ctx => {
@@ -38,7 +42,7 @@ router.get('/sessions/:sessionId', ctx => {
 router.del('/sessions/:sessionId', ctx => {
   const s = Session.getInstance(ctx.params.sessionId);
   if(s) {
-    s.deleteSession();
+    s.deleteSession(); // TODO: Should also deleteParser
     ctx.response.status = 202;
   } else {
     ctx.response.status = 404;
