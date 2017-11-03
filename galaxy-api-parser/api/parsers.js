@@ -1,4 +1,6 @@
 import uuid from 'uuid/v4';
+import peg from 'pegjs';
+import {getDefaultParams, generateParseGrammar, getEmptyParams} from "./template";
 
 /**
  * parsers contains a map of valid Parser objects
@@ -35,7 +37,40 @@ class Parser {
   constructor(id) {
     this.id = id;
     this.statements = [];
-    this.parser = null; // TODO: Create parser based on statements
+    this.params = {};
+    this.parser = null;
+    this.regenerateParser();
+  }
+
+  regenerateParser() {
+    /**
+     * Create empty parser
+     */
+    let params = getEmptyParams();
+    let parser = peg.generate(generateParseGrammar(params));
+
+    /**
+     * Map statements
+     */
+    this.statements = this.statements.map(s => {
+      try {
+        const result = parser.parse(s.query);
+        switch (result.type) {
+          case 'resource_definition':
+            return s;
+          case 'number_definition':
+            params[result.from.toLowerCase()] = result.to;
+            parser = peg.generate(generateParseGrammar(params));
+            return s;
+          default:
+            return s;
+        }
+      } catch (e) {
+        return s;
+      }
+    });
+    this.params = params;
+    this.parser = parser;
   }
 
   /**
@@ -52,13 +87,29 @@ class Parser {
     try {
       const result = this.parser.parse(query); // TODO: Elaborate on parser results
       statement.type = 'success';
-      statement.message = result;
+      switch(result.type) {
+        case 'number_definition':
+          statement.message = result.from + ' aliased to ' + result.to;
+          break;
+        case 'num_query':
+          if(result.num_count === 0) {
+            statement.message = 'Nothing is 0';
+          } else {
+            statement.message = result.num_word + ' is ' + result.num_count;
+          }
+          break;
+        default:
+          statement.message = result.type;
+          break;
+      }
     } catch (e) {
       statement.type = 'error';
       statement.message = ERROR_MESSAGE;
     }
 
     this.statements.push(statement);
+    this.regenerateParser();
+
     return statement;
   }
 
