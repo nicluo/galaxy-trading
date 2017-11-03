@@ -1,6 +1,6 @@
-# GALAXY TRADING PLATFORM
+# Galaxy Merchant Trading Guide
 
-This is a translator between intergalactic units to human numbers.
+A tegj tegj/tegj tegj solution to helping the intragalactic trader deal with numbers should be accurate, accessible, quick and easy to use.
 
 ## Starting the API Server (Koa)
 
