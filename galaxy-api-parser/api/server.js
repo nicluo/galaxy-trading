@@ -15,12 +15,35 @@ router.get('/', ctx => {
   ctx.body = {data: 'Hello API'};
 });
 
-router.post('/queries', ctx => {
-  ctx.body = {data: 'Query'};
+router.get('/parsers/:parserId', ctx => {
+  // TODO: check sessionId
+  const p = Parser.getInstance(ctx.params.parserId);
+  if(p) {
+    ctx.body = p;
+  } else {
+    ctx.response.status = 404;
+  }
 });
 
-router.del('/queries/:queryId', ctx => {
-  ctx.body = {data: 'Query Delete'};
+router.post('/parsers/:parserId/statements', ctx => {
+  // TODO: check sessionId
+  const p = Parser.getInstance(ctx.params.parserId);
+  if(p) {
+    ctx.body = p.query(ctx.request.body.query);
+  } else {
+    ctx.response.status = 404;
+  }
+});
+
+router.del('/parsers/:parserId/statements/:statementId', ctx => {
+  // TODO: check sessionId
+  const p = Parser.getInstance(ctx.params.parserId);
+  if(p) {
+    p.deleteStatement(ctx.params.statementId);
+    ctx.response.status = 202;
+  } else {
+    ctx.response.status = 404;
+  }
 });
 
 router.post('/sessions', ctx => {
