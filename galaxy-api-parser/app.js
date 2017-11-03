@@ -2,6 +2,7 @@ import Koa from 'koa';
 import logger from 'koa-logger';
 import serve from 'koa-static';
 import mount from 'koa-mount';
+import cors from '@koa/cors';
 import api from './api/server';
 
 
@@ -11,6 +12,7 @@ import api from './api/server';
 
 const app = new Koa();
 app
+  .use(cors()) // TODO: Remove for production
   .use(logger())
   .use(serve('../galaxy-site/build'))
   .use(mount('/api', api));
