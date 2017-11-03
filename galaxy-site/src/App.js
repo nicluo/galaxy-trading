@@ -44,6 +44,16 @@ class App extends Component {
     this.initializeSession();
   }
 
+  handleQuery = (query) => {
+    const {session, statements} = this.state;
+    createStatement(session.id, session.parserId, query)
+      .then(s => {
+        const newStatements = statements.slice();
+        newStatements.push(s);
+        this.setState({statements: newStatements});
+      });
+  };
+
   render() {
     const {session, statements} = this.state;
 
@@ -55,8 +65,8 @@ class App extends Component {
           <h1 className="App-title">Space Math</h1>
         </header>
 
-        <Form session={session} />
         <ResultList session={session} statements={statements} />
+        <Form session={session} onSubmit={this.handleQuery} />
       </div>
     );
   }

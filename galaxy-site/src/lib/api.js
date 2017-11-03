@@ -27,13 +27,17 @@ export const getStatements = (sessionId, parserId) => {
     .then(parser => parser.statements);
 };
 
-export const createQuery = (sessionId, query) => {
-  return fetch(urlJoin(API_BASE_URL, '/queries'), {
+export const createStatement = (sessionId, parserId, query) => {
+  return fetch(urlJoin(API_BASE_URL, 'parsers', parserId, 'statements'), {
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
     method: 'POST',
-    body: {
+    body: JSON.stringify({
       sessionId,
       query
-    }
+    })
   }).then(response => response.json());
 };
 
