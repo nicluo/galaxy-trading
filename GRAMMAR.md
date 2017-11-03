@@ -1,7 +1,6 @@
 /**
  * Galaxy Trader Grammar
  * =====================
- * Paste this into https://pegjs.org/online to give it a whirl!
  */
 
 Expression
@@ -46,9 +45,11 @@ ResourceDef
     to: r1,
     to_count: n1.v,
     to_word: n1.w,
+    to_type: n1.t,
     from: r2,
     from_count: n2.v,
-    from_word: n2.w
+    from_word: n2.w,
+    from_type: n2.t
   };
 }
 
@@ -64,7 +65,8 @@ NumQuery
   return {
     type: 'num_query',
     count: r.v,
-    word: r.w
+    word: r.w,
+    type: r.t
   };
 }
 
@@ -82,7 +84,8 @@ ResourceQuery
     to: r1,
     from: r2,
     from_count: n.v,
-    from_word: n.w
+    from_word: n.w,
+    from_type: n.t
   };
 }
 
@@ -101,7 +104,7 @@ RNum
     var w = [k.w, h.w, d.w, o.w].join(' ');
     w = w.replace(/[ ]+/g, ' ').replace(/^ */, '').replace(/ *$/, '');
     var v = k.v + h.v + d.v + o.v;
-    return {w: w, v: v};
+    return {w: w, v: v, t: 'roman'};
   }
 
 Kilo
@@ -127,7 +130,7 @@ Hecto
 
 HectoDeduct
   = i:RomanC j:(RomanM / RomanD) {
-    return { w: [i.w, j.w].join(' '), v: i.v + j.v };
+    return { w: [i.w, j.w].join(' '), v: j.v - i.v };
   }
 
 HectoAdd
@@ -155,7 +158,7 @@ Deca
 
 DecaDeduct
   = i:RomanX j:(RomanC / RomanL) {
-    return { w: [i.w, j.w].join(' '), v: i.v + j.v };
+    return { w: [i.w, j.w].join(' '), v: j.v - i.v };
   }
 
 DecaAdd
@@ -183,7 +186,7 @@ One
 
 OneDeduct
   = i:RomanI j:(RomanX / RomanV) {
-    return { w: [i.w, j.w].join(' '), v: i.v + j.v };
+    return { w: [i.w, j.w].join(' '), v: j.v - i.v };
   }
 
 OneAdd
@@ -251,7 +254,7 @@ Skip
  **/
 
 Integer "integer"
-  = &([0-9]* !char) n:([0-9]*) { return {w: n, v: parseInt(n, 10)}; }
+  = &([0-9]* !char) n:([0-9]*) { return {w: n, v: parseInt(n, 10), t:'integer'}; }
 
 keywords
   = reserved

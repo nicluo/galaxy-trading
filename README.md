@@ -28,3 +28,6 @@ Run tests:
     cd galaxy-site
     yarn test
 
+## Todos:
+
+-   Compute transitive closures for `resource_query`
