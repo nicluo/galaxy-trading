@@ -2,21 +2,21 @@ import React, { Component } from 'react';
 import ResultList from './ResultList';
 import Form from './Form';
 import logo from './logo.svg';
-import 'bootstrap/dist/css/bootstrap.css';
+import {createSession, createStatement, getSession, getStatements} from './lib/api';
+import {getSessionId, setSessionId} from './lib/localstorage';
 import './App.css';
-import {createSession, getSession} from './lib/api';
-import './lib/localstorage';
-import {getSessionId, setSessionId} from "./lib/localstorage";
 
 class App extends Component {
   state = {
-    session: null
+    session: null,
+    statements: []
   };
 
   initializeSession() {
     if(getSessionId() !== null) {
       getSession(getSessionId())
         .then(session => this.setState({ session }))
+        .then(() => this.initializeSatements())
         .catch(() => this.startNewSession());
     } else {
       this.startNewSession();
@@ -31,12 +31,21 @@ class App extends Component {
       });
   }
 
+  initializeSatements() {
+    const { session } = this.state;
+    getStatements(session.id, session.parserId)
+      .then(statements => {
+        console.log(statements)
+        this.setState({ statements });
+      });
+  }
+
   componentDidMount() {
     this.initializeSession();
   }
 
   render() {
-    const {session} = this.state;
+    const {session, statements} = this.state;
 
     return (
       <div className="App">
@@ -46,8 +55,8 @@ class App extends Component {
           <h1 className="App-title">Space Math</h1>
         </header>
 
-        <ResultList session={session} />
         <Form session={session} />
+        <ResultList session={session} statements={statements} />
       </div>
     );
   }

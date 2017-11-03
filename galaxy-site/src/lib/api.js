@@ -20,9 +20,11 @@ export const deleteSession = (sessionId) => {
   }).then(response => response.json());
 };
 
-export const getQueries = (sessionId) => {
-  return fetch(urlJoin(API_BASE_URL, '/queries', sessionId))
-    .then(response => response.json());
+export const getStatements = (sessionId, parserId) => {
+  //TODO: Support authorization using sessionId
+  return fetch(urlJoin(API_BASE_URL, 'parsers', parserId))
+    .then(response => response.json())
+    .then(parser => parser.statements);
 };
 
 export const createQuery = (sessionId, query) => {
