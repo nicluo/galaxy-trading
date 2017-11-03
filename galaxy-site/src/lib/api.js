@@ -3,13 +3,13 @@ import urlJoin from 'url-join';
 const API_BASE_URL = 'http://localhost:4000/api';
 
 export const createSession = () => {
-  return fetch(urlJoin(API_BASE_URL, '/sessions'), { method: 'POST' })
+  return fetch(urlJoin(API_BASE_URL, 'sessions'), { method: 'POST' })
     .then(response => response.json())
     .then(s => { console.log('create', s); return s; });
 };
 
 export const getSession = (sessionId) => {
-  return fetch(urlJoin(API_BASE_URL, '/sessions', sessionId))
+  return fetch(urlJoin(API_BASE_URL, 'sessions', sessionId))
     .then(response => response.json())
     .then(s => { console.log('get', s); return s; });
 };
@@ -41,12 +41,11 @@ export const createStatement = (sessionId, parserId, query) => {
   }).then(response => response.json());
 };
 
-export const deleteQuery = (sessionId, query) => {
-  return fetch(urlJoin(API_BASE_URL, '/queries'), {
-    method: 'POST',
-    body: {
-      sessionId,
-      query
+export const deleteStament = (sessionId, parserId, statementId) => {
+  return fetch(urlJoin(API_BASE_URL, 'parsers', parserId, 'statements', statementId), {
+    method: 'DELETE',
+    body: { //TODO: DELETE request body may be ignored by server
+      sessionId
     }
   }).then(response => response.json());
 };
