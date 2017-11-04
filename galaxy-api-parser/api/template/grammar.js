@@ -256,7 +256,7 @@ Skip
  **/
 
 Integer "integer"
-  = &([0-9]* !char) n:([0-9]*) { return {w: n, v: parseInt(n, 10), t:'integer'}; }
+  = &([0-9]* !char) n:([0-9]*) { return {w: n.join(''), v: parseInt(n.join(''), 10), t:'integer'}; }
 
 keywords
   = reserved
