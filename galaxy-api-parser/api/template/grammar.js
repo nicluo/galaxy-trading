@@ -1,26 +1,8 @@
-export const getEmptyParams = () => ({
-  resources: []
-});
-
-export const getDefaultParams = () => ({
-  i: 'i',
-  v: 'v',
-  x: 'x',
-  l: 'l',
-  c: 'c',
-  d: 'd',
-  m: 'm',
-  resources: []
-});
-
-export const generateParseGrammar = (params) => {
-  const config = Object.assign(getEmptyParams(), params);
-
-return `
+export default (config) => `
 /**
  * Galaxy Trader Grammar
  * =====================
- */
+ **/
 
 Expression
   = ResourceQuery
@@ -308,4 +290,3 @@ ws "compulsory whitespace"
 _ "optional whitespace"
   = [ \\t\\n\\r]* { return null; }
 `;
-};
