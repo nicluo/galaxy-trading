@@ -93,7 +93,7 @@ This can be useful for some sentences where we can relax whitespace requirements
                "how much is tegj ?"
                " how much is tegj ? "
 
-## Matching exact words
+### Matching exact words
 
 Predicates are needed to match an entire word and not just parts. For instance, the following will fail to parse `globglob globglob` correctly:
 
