@@ -1,6 +1,7 @@
 /**
  * Galaxy Trader Grammar
  * =====================
+ * Paste this into https://pegjs.org/online to give it a whirl!
  */
 
 Expression
