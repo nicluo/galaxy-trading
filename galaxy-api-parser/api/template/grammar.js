@@ -43,14 +43,14 @@ ResourceDef
   = _ n1:AnyNum ws r1:ResourceCandidate ws is ws n2:AnyNum ws r2:ResourceCandidate _ {
   return {
     type: 'resource_definition',
-    to: r1,
-    to_count: n1.v,
-    to_word: n1.w,
-    to_type: n1.t,
-    from: r2,
-    from_count: n2.v,
-    from_word: n2.w,
-    from_type: n2.t
+    from: r1,
+    from_count: n1.v,
+    from_word: n1.w,
+    from_type: n1.t,
+    to: r2,
+    to_count: n2.v,
+    to_word: n2.w,
+    to_type: n2.t
   };
 }
 
