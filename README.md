@@ -2,6 +2,8 @@
 
 A tegj tegj/tegj tegj solution to helping the intragalactic trader deal with numbers should be accurate, accessible, quick and easy to use.
 
+![Screenshot](screenshot.png)
+
 ## Starting the API Server (Koa)
 
 Setting up the server:
