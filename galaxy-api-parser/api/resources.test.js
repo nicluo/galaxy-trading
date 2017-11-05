@@ -102,6 +102,7 @@ describe('Resources', () => {
     expect(r.findRelationPath('Iron', 'Metal')).toBeNull();
   });
 
+  test('queryRelation should return results using transitive relations', () => {
     const r = new Resources();
     r.addResource('Iron');
     r.addResource('Credits');
@@ -115,7 +116,7 @@ describe('Resources', () => {
     ]);
   });
 
-  test('queryRelation should return results using simple inverse relations', () => {
+  test('queryRelation should return results using inverse transitive relations', () => {
     const r = new Resources();
     r.addResource('Iron');
     r.addResource('Credits');

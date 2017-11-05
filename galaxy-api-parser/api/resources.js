@@ -50,24 +50,34 @@ class Resources {
 
   /**
    * queryRelation calculates the amount of another resource
-   * //TODO: Implement conversion by transitive closure
    * @param fromAmount
    * @param fromResource
    * @param toResource
-   * @returns [{label:string, amount:number}]
+   * @returns [{resource:string, amount:number}]
    */
   queryRelation(fromAmount, fromResource, toResource) {
-    const conversions = [];
-    conversions.push({resource: fromResource, amount: fromAmount});
     const fromResourceLower = fromResource.toLowerCase();
     const toResourceLower = toResource.toLowerCase();
 
-    if(typeof(this.resourceMap[fromResourceLower].relations[toResourceLower]) === 'undefined') {
-      return null
-    } else {
-      const toAmount = fromAmount * this.resourceMap[fromResourceLower].relations[toResourceLower];
-      conversions.push({resource: toResource, amount: toAmount});
+    const path = this.findRelationPath(fromResource, toResource);
+
+    if(path !== null){
+      const conversions = [];
+      conversions.push({resource: fromResource, amount: fromAmount});
+
+      let amount = fromAmount, previousResource = fromResourceLower;
+      path.forEach(step => {
+        amount = amount * this.resourceMap[previousResource].relations[step];
+        conversions.push({
+          resource: step === toResourceLower ? toResource : this.resourceMap[step].label,
+          amount: amount
+        });
+        previousResource = step;
+      });
+
       return conversions;
+    } else {
+      return null;
     }
   }
 
@@ -83,7 +93,7 @@ class Resources {
     fromResource = fromResource.toLowerCase();
     toResource = toResource.toLowerCase();
 
-    const visited = {fromResource: null}; // Keeps track of visited and backtracking steps
+    const visited = {fromResource: null}; // Keeps track of visited and backtracking origin
     const next = [fromResource];
     let step;
     while (next.length > 0) {
@@ -94,7 +104,7 @@ class Resources {
           next.push(r);
         }
       });
-      if(visited[toResource] !== 'undefined'); // Break early if solution is reached
+      if(visited[toResource] !== 'undefined') break; // Break early if solution is reached
     }
 
     // Begin backtrack
@@ -102,7 +112,7 @@ class Resources {
       const path = [toResource];
       let backtrack = toResource;
       while(visited[backtrack] !== fromResource) {
-        backtrack = visited[backtrack]
+        backtrack = visited[backtrack];
         path.push(backtrack);
       }
       path.reverse();
