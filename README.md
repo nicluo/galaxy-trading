@@ -28,9 +28,36 @@ Run tests:
     cd galaxy-site
     yarn test
 
-## Todos:
+## Extensions:
 
--   Compute transitive closures for `resource_query`
+### Conversion by Transitive Closure
+
+We can make the conversion operation transitive by allowing multiple conversions to take place. If we defined conversions between A and B, then B and C, assuming a transitive property allows us to convert from A to C.
+
+For a complex conversion query, a breadth-first search (BFS) is used to find a path from the two resources to be traded. This allows us to find the shortest conversion path. If there is no path, then it's not possible to convert between them. Additionally, if we find a path, we can also use backtracking to find the steps that led to the conversion.
+
+    tegj is L
+    => L aliased to tegj
+    
+    tegj Iron is 50 Credits
+    => 50 Iron = 50 Credits
+    
+    50 Dirt is 10 Credits
+    => 50 Dirt = 10 Credits
+    
+    how many Dirt is tegj Dirt ?
+    => tegj Dirt is 50 Dirt -- identity conversion
+    
+    how many Credits is 50 Dirt ?
+    => 50 Dirt is 10 Credits -- simple conversion
+    
+    how many Dirt is 10 Iron ?
+    => 10 Iron is 10 Credits is 50 Dirt -- formatted output for multiple conversions
+
+
+
+
+
 
 ## What's in the Parser?
 
