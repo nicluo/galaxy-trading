@@ -71,6 +71,12 @@ describe('Resources', () => {
     ]);
   });
 
+  test('findRelationPath should one results using identity relation', () => {
+    const r = new Resources();
+    r.addResource('Iron');
+    expect(r.findRelationPath('Iron', 'Iron')).toEqual(['iron']);
+  });
+
   test('findRelationPath should return results using simple relations', () => {
     const r = new Resources();
     r.addResource('Iron');

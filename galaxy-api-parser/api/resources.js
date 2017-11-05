@@ -93,18 +93,23 @@ class Resources {
     fromResource = fromResource.toLowerCase();
     toResource = toResource.toLowerCase();
 
-    const visited = {fromResource: null}; // Keeps track of visited and backtracking origin
+    /**
+     * visited keeps track of visited vertices and backtracking origin
+     * base case {fromResource: fromResource} is useful for identity queries
+     * @type {{fromResource: (string|*)}}
+     */
+    const visited = {[fromResource]: fromResource};
     const next = [fromResource];
     let step;
     while (next.length > 0) {
       step = next.shift();
       Object.keys(this.resourceMap[step].relations).forEach(r => {
-        if(typeof(visited[r]) === 'undefined') {
+        if(typeof(visited[r]) === 'undefined' && r !== step) {
           visited[r] = step;
           next.push(r);
         }
       });
-      if(visited[toResource] !== 'undefined') break; // Break early if solution is reached
+      if(typeof(visited[toResource]) !== 'undefined') break; // Break early if solution is reached
     }
 
     // Begin backtrack
