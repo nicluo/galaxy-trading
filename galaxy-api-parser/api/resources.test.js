@@ -71,7 +71,37 @@ describe('Resources', () => {
     ]);
   });
 
-  test('queryRelation should return results using simple transitive relations', () => {
+  test('findRelationPath should return results using simple relations', () => {
+    const r = new Resources();
+    r.addResource('Iron');
+    r.addResource('Credits');
+    r.addResourceRelation(10, 'Iron', 50, 'Credits');
+    expect(r.findRelationPath('Iron', 'Credits')).toEqual(['credits']);
+    expect(r.findRelationPath('Credits', 'Iron')).toEqual(['iron']);
+  });
+
+  test('findRelationPath should return results using transitive relations', () => {
+    const r = new Resources();
+    r.addResource('Iron');
+    r.addResource('Credits');
+    r.addResource('Dirt');
+    r.addResourceRelation(10, 'Iron', 50, 'Credits');
+    r.addResourceRelation(25, 'Credits', 50, 'Dirt');
+    expect(r.findRelationPath('Iron', 'Dirt')).toEqual(['credits', 'dirt']);
+    expect(r.findRelationPath('Dirt', 'Iron')).toEqual(['credits', 'iron']);
+  });
+
+  test('findRelationPath should return null after exhausting transitive relations', () => {
+    const r = new Resources();
+    r.addResource('Iron');
+    r.addResource('Credits');
+    r.addResource('Dirt');
+    r.addResource('Metal');
+    r.addResourceRelation(10, 'Iron', 50, 'Credits');
+    r.addResourceRelation(25, 'Dirt', 50, 'Metal');
+    expect(r.findRelationPath('Iron', 'Metal')).toBeNull();
+  });
+
     const r = new Resources();
     r.addResource('Iron');
     r.addResource('Credits');

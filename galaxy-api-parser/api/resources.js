@@ -70,6 +70,47 @@ class Resources {
       return conversions;
     }
   }
+
+  /**
+   * findRelationPath runs a Breadth-first search to find a shortest conversion path from fromResource to toResource
+   * In the case of multiple paths with the same length, an arbitrary one is used, however, a consistent system should
+   * only have one path from any resource to another.
+   * @param fromResource
+   * @param toResource
+   * @returns {Array}
+   */
+  findRelationPath(fromResource, toResource) {
+    fromResource = fromResource.toLowerCase();
+    toResource = toResource.toLowerCase();
+
+    const visited = {fromResource: null}; // Keeps track of visited and backtracking steps
+    const next = [fromResource];
+    let step;
+    while (next.length > 0) {
+      step = next.shift();
+      Object.keys(this.resourceMap[step].relations).forEach(r => {
+        if(typeof(visited[r]) === 'undefined') {
+          visited[r] = step;
+          next.push(r);
+        }
+      });
+      if(visited[toResource] !== 'undefined'); // Break early if solution is reached
+    }
+
+    // Begin backtrack
+    if(typeof(visited[toResource]) !== 'undefined') {
+      const path = [toResource];
+      let backtrack = toResource;
+      while(visited[backtrack] !== fromResource) {
+        backtrack = visited[backtrack]
+        path.push(backtrack);
+      }
+      path.reverse();
+      return path;
+    } else {
+      return null;
+    }
+  }
 }
 
 export default Resources;
