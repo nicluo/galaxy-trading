@@ -176,6 +176,7 @@ class Parser {
    */
   deleteStatement(statementId) {
     this.statements = this.statements.filter((s) => s.id !== statementId);
+    this.regeneratePegParser();
   }
 
   /**
