@@ -4,20 +4,18 @@ const API_BASE_URL = 'http://localhost:4000/api';
 
 export const createSession = () => {
   return fetch(urlJoin(API_BASE_URL, 'sessions'), { method: 'POST' })
-    .then(response => response.json())
-    .then(s => { console.log('create', s); return s; });
+    .then(response => response.json());
 };
 
 export const getSession = (sessionId) => {
   return fetch(urlJoin(API_BASE_URL, 'sessions', sessionId))
-    .then(response => response.json())
-    .then(s => { console.log('get', s); return s; });
+    .then(response => response.json());
 };
 
 export const deleteSession = (sessionId) => {
   return fetch(urlJoin(API_BASE_URL, 'sessions', sessionId), {
     method: 'DELETE'
-  }).then(response => response.json());
+  });
 };
 
 export const getStatements = (sessionId, parserId) => {
@@ -47,5 +45,5 @@ export const deleteStament = (sessionId, parserId, statementId) => {
     body: { //TODO: DELETE request body may be ignored by server
       sessionId
     }
-  }).then(response => response.json());
+  });
 };
