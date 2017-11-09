@@ -4,9 +4,12 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
+import withSession from "./lib/session";
+
+const AppWithSession = withSession(App);
 
 render(
-  <App />,
+  <AppWithSession />,
   document.getElementById('root')
 );
 
