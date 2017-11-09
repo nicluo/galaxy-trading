@@ -1,9 +1,14 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { shallow } from 'enzyme';
+import toJson from 'enzyme-to-json';
 import App from './App';
 
-// TODO: fix this from crashing because of fetch requests
-// it('renders without crashing', () => {
-//   const div = document.createElement('div');
-//   ReactDOM.render(<App />, div);
-// });
+it('renders <App /> loading state', () => {
+  const wrapper = shallow(<App sessionId={null} offline={false} />);
+  expect(toJson(wrapper)).toMatchSnapshot();
+});
+
+it('renders <App /> offline state', () => {
+  const wrapper = shallow(<App sessionId={null} offline={true} />);
+  expect(toJson(wrapper)).toMatchSnapshot();
+});

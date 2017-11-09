@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders <App /> loading state 1`] = `
+<div
+  className="App"
+>
+  <header
+    className="App-header"
+  >
+    <div
+      className="text-white float-right"
+    />
+    <img
+      alt="logo"
+      className="App-logo"
+      src="logo.svg"
+    />
+    <h1
+      className="App-title"
+    >
+      Space Math
+    </h1>
+  </header>
+  <div
+    className="alert alert-info"
+    role="alert"
+  >
+    Connecting to API server...
+  </div>
+</div>
+`;
+
+exports[`renders <App /> offline state 1`] = `
+<div
+  className="App"
+>
+  <header
+    className="App-header"
+  >
+    <div
+      className="text-white float-right"
+    />
+    <img
+      alt="logo"
+      className="App-logo"
+      src="logo.svg"
+    />
+    <h1
+      className="App-title"
+    >
+      Space Math
+    </h1>
+  </header>
+  <div
+    className="alert alert-danger"
+    role="alert"
+  >
+    Unable to connect to API server.
+  </div>
+</div>
+`;
