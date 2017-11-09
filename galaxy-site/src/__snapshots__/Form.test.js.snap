@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Form renders <Form /> component 1`] = `
+<div
+  className="container my-4"
+>
+  <form
+    onSubmit={[Function]}
+  >
+    <div
+      className="form-group"
+    >
+      <input
+        aria-describedby="query"
+        autoFocus=""
+        className="form-control form-control-lg"
+        id="query"
+        onChange={[Function]}
+        placeholder="how much is pish pish Iron ?"
+        type="text"
+        value=""
+      />
+    </div>
+  </form>
+</div>
+`;
