@@ -44,7 +44,7 @@ const DefaultMessage = (
       </li>
     </ul>
   </div>
-)
+);
 
 ResultList.propTypes = {
   statements: PropTypes.array.isRequired

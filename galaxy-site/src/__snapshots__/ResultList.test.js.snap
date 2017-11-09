@@ -1,0 +1,90 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ResultList renders <ResultList /> component 1`] = `
+<div
+  className="container my-4"
+>
+  <div
+    className="card my-2"
+  >
+    <ul
+      className="list-group list-group-flush"
+    >
+      <li
+        className="list-group-item"
+      >
+        <strong
+          className="h4"
+        >
+          Welcome!
+        </strong>
+      </li>
+      <li
+        className="list-group-item list-group-item-info"
+      >
+        Submit a query to get started!
+      </li>
+    </ul>
+  </div>
+</div>
+`;
+
+exports[`ResultList renders <ResultList /> component with error item 1`] = `
+<div
+  className="container my-4"
+>
+  <div
+    className="card my-2"
+    key="1"
+  >
+    <ul
+      className="list-group list-group-flush"
+    >
+      <li
+        className="list-group-item"
+      >
+        <strong
+          className="h4"
+        >
+          bad input
+        </strong>
+      </li>
+      <li
+        className="list-group-item list-group-item-danger"
+      >
+        I dont understand what you are talking about
+      </li>
+    </ul>
+  </div>
+</div>
+`;
+
+exports[`ResultList renders <ResultList /> component with item 1`] = `
+<div
+  className="container my-4"
+>
+  <div
+    className="card my-2"
+    key="1"
+  >
+    <ul
+      className="list-group list-group-flush"
+    >
+      <li
+        className="list-group-item"
+      >
+        <strong
+          className="h4"
+        >
+          tegj is L
+        </strong>
+      </li>
+      <li
+        className="list-group-item list-group-item-success"
+      >
+        tegj aliased to L
+      </li>
+    </ul>
+  </div>
+</div>
+`;
