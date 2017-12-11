@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`session withSession should render without crashing 1`] = `
+<MockApp
+  offline={false}
+  parserId={null}
+  sessionId={null}
+/>
+`;
